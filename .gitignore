@@ -550,3 +550,4 @@
 /venv/Lib/site-packages/pip/_vendor/webencodings/x_user_defined.py
 /venv/Lib/site-packages/pip/_internal/network/xmlrpc.py
 /venv/Lib/site-packages/setuptools-50.3.0.dist-info/zip-safe
+/venv/Scripts/f2py.exe
