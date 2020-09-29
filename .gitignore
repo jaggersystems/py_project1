@@ -341,7 +341,6 @@
 /venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/low_level.py
 /venv/Lib/site-packages/pip/_internal/cli/main.py
 /venv/Lib/site-packages/pip/_internal/main.py
-/main.py
 /venv/Lib/site-packages/pip/_internal/cli/main_parser.py
 /venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/makefile.py
 /venv/Lib/site-packages/pip/_vendor/distlib/manifest.py
