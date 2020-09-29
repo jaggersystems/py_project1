@@ -35,9 +35,9 @@ else:
 
 
 
-print("\nHigh%: " + str(c_high_percent))
-print("Body%: " + str(c_body_percent))
-print("Low%: " + str(c_low_percent))
+print("\nHigh%: " + str(round(c_high_percent) ))
+print("Body%: " + str(round(c_body_percent) ))
+print("Low%: " + str(round(c_low_percent) ))
 
 print("The Open is: " + str(c_open))
 print("The Close is: " + str(c_close))
