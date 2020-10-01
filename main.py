@@ -2,7 +2,7 @@ import numpy as np
 
 # Date[0], Time[1], Open[2], High[3], Low[4], Close[5], Volume[6]
 import csv
-with open('EURUSD.csv', "r", newline='') as csv_file:
+with open('GBPUSDH4.csv', "r", newline='') as csv_file:
     data = list(csv.reader(csv_file))
 csv_file.close()
 
@@ -21,22 +21,29 @@ def calculate_range(f_high, f_low):
     # c_pips = int(c_true_range * 10000)  # TODO: Return pips
     return f_true_range
 
-
 def calculate_high(f_open, f_high, f_low, f_close):
+    nrange = calculate_range(f_high, f_low)
+    if nrange == 0:
+        return 0
+
     if is_bull_candle(f_open, f_close):
         # print("bull")
-        f_high_percent = ((f_high - f_close) / calculate_range(f_high, f_low)) * 100
+        f_high_percent = ((f_high - f_close) / nrange) * 100
     else:
         # print("bear")
-        f_high_percent = ((f_high - f_open) / calculate_range(f_high, f_low)) * 100
+        f_high_percent = ((f_high - f_open) / nrange) * 100
     return round(f_high_percent)
 
 
 def calculate_body(f_open, f_high, f_low, f_close):
+    nrange = calculate_range(f_high, f_low)
+    if nrange == 0:
+        return 0
+
     if is_bull_candle(f_open, f_close):
-        f_body_percent = ((f_close - f_open) / calculate_range(f_high, f_low)) * 100
+        f_body_percent = ((f_close - f_open) / nrange) * 100
     else:
-        f_body_percent = ((f_open - f_close) / calculate_range(f_high, f_low)) * 100
+        f_body_percent = ((f_open - f_close) / nrange) * 100
     return round(f_body_percent)
 
 
@@ -50,20 +57,20 @@ def round_number(num_input, base=5):
     return base * round(float(num_input) / base)
 
 
-i = 2
-# 0 = bear = S-22.77-51.3-25.93-72
-# 1 = bull = L-21.42-63.02-15.56-64
+# i = 2
+# # 0 = bear = S-22.77-51.3-25.93-72
+# # 1 = bull = L-21.42-63.02-15.56-64
+# # 2 = bull with leading 0 missing
+# c_open = float(data[i][2])
+# c_high = float(data[i][3])
+# c_low = float(data[i][4])
+# c_close = float(data[i][5])
 
-c_open = float(data[i][2])
-c_high = float(data[i][3])
-c_low = float(data[i][4])
-c_close = float(data[i][5])
-
-candle_bull = is_bull_candle(c_open, c_close)
-candle_range = calculate_range(c_high, c_low)
-candle_high = calculate_high(c_open, c_high, c_low, c_close)
-candle_body = calculate_body(c_open, c_high, c_low, c_close)
-candle_low = calculate_low(c_open, c_high, c_low, c_close)
+# candle_bull = is_bull_candle(c_open, c_close)
+# candle_range = calculate_range(c_high, c_low)
+# candle_high = calculate_high(c_open, c_high, c_low, c_close)
+# candle_body = calculate_body(c_open, c_high, c_low, c_close)
+# candle_low = calculate_low(c_open, c_high, c_low, c_close)
 
 # print("is_bull_candle: " + str(candle_bull))
 # print("calculate_range: " + str(candle_range))
@@ -71,34 +78,41 @@ candle_low = calculate_low(c_open, c_high, c_low, c_close)
 # print("calculate_body: " + str(candle_body))
 # print("calculate_low: " + str(candle_low) + "\n")
 
-candle_id = str(round_number(candle_high)) + "_" + str(round_number(candle_body)) + "_" + str(round_number(candle_low))
-print(candle_id)
+# candle_id = str(format(candle_high, "02")) + "_" + str(format(candle_body, "02")) + "_" + str(format(candle_low, "02"))
+# print(candle_id)
 
 
-#
-# # creating an empty 2d array of int type
-# nparray = np.empty((0,2), int)
-# print("Empty array:")
-# print(nparray)
-#
-# # adding two new rows to empt_array
-# # using np.append()
-# nparray = np.append(nparray, np.array([[10, 20]]), axis=0)
-# nparray = np.append(nparray, np.array([[40, 50]]), axis=0)
-#
-# print("\nNow array is:")
-# print(nparray)
+# creating an empty 1d array of int type
+nparray = np.empty((0, 1), int)   # 0,2 or 2d etc.
 
 
-# i = 0
-# while i <= len(data)-1:
-#     c_open = float(data[i][2])
-#     c_high = float(data[i][3])
-#     c_low = float(data[i][4])
-#     c_close = float(data[i][5])
-#
-#     a = np.array(build_candle_id(c_close, c_open, c_high, c_low))
-#     # print(a)
-#     i += 1
+# using np.append() to add rows to array
+i = 0
+while i <= len(data)-1:
+    c_open = float(data[i][2])
+    c_high = float(data[i][3])
+    c_low = float(data[i][4])
+    c_close = float(data[i][5])
+
+    candle_bull = is_bull_candle(c_open, c_close)
+    candle_range = calculate_range(c_high, c_low)
+    candle_high = calculate_high(c_open, c_high, c_low, c_close)
+    candle_body = calculate_body(c_open, c_high, c_low, c_close)
+    candle_low = calculate_low(c_open, c_high, c_low, c_close)
+
+    candle_id = str(format(candle_high, "02")) + "_" + \
+                str(format(candle_body, "02")) + "_" + \
+                str(format(candle_low, "02"))
+
+    nparray = np.append(nparray, np.array([[str(candle_id)]]), axis=0)
+
+    i += 1
+
+print("Array results: ")
+print(nparray)
+
+print("Array size: " + str(nparray.size) + "\n")
+
+
 
 
