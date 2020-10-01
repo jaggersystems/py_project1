@@ -1,8 +1,13 @@
 import numpy as np
+from scipy import stats
+import tensorflow as tf
+from tensorflow import keras
+
+
 
 # Date[0], Time[1], Open[2], High[3], Low[4], Close[5], Volume[6]
 import csv
-with open('GBPUSDH4.csv', "r", newline='') as csv_file:
+with open('GBPUSDH4_small.csv', "r", newline='') as csv_file:
     data = list(csv.reader(csv_file))
 csv_file.close()
 
@@ -83,8 +88,7 @@ def round_number(num_input, base=5):
 
 
 # creating an empty 1d array of int type
-nparray = np.empty((0, 1), int)   # 0,2 or 2d etc.
-
+npdata = np.empty((0, 1), int)   # 0,2 or 2d etc.
 
 # using np.append() to add rows to array
 i = 0
@@ -100,18 +104,37 @@ while i <= len(data)-1:
     candle_body = calculate_body(c_open, c_high, c_low, c_close)
     candle_low = calculate_low(c_open, c_high, c_low, c_close)
 
-    candle_id = str(format(candle_high, "02")) + "_" + \
-                str(format(candle_body, "02")) + "_" + \
+    candle_id = str(format(candle_high, "02")) + "" + \
+                str(format(candle_body, "02")) + "" + \
                 str(format(candle_low, "02"))
 
-    nparray = np.append(nparray, np.array([[str(candle_id)]]), axis=0)
+    npdata = np.append(npdata, np.array([[str(candle_id)]]), axis=0)
 
     i += 1
 
-print("Array results: ")
-print(nparray)
 
-print("Array size: " + str(nparray.size) + "\n")
+# Get a tuple of unique values & their frequency in numpy array
+# uniqueValues, indicesList, occurCount, = np.unique(nparray, return_index=True, return_counts=True)
+
+
+# # Zip the contents
+# listOfUniqueValues = zip(uniqueValues, occurCount, indicesList)
+#
+# # Iterate over the ziiped object and display each unique value along
+# # with frequency count & first index position
+# for elem in listOfUniqueValues:
+#    print(elem[0], ' Occurs : ', elem[1], ' times & first index is ', elem[2])
+#
+# print("Unique Values : " , uniqueValues)
+# print("Occurrence Count : ", occurCount)
+
+
+# print(stats.mode(npdata, axis=None))
+
+# print("Array results: ")
+print(npdata)
+#
+# print("Array size: " + str(nparray.size) + "\n")
 
 
 
