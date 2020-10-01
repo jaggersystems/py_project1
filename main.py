@@ -24,12 +24,12 @@ def calculate_range(f_high, f_low):
 
 def calculate_high(f_open, f_high, f_low, f_close):
     if is_bull_candle(f_open, f_close):
-        print("bull")
+        # print("bull")
         f_high_percent = ((f_high - f_close) / calculate_range(f_high, f_low)) * 100
     else:
-        print("bear")
+        # print("bear")
         f_high_percent = ((f_high - f_open) / calculate_range(f_high, f_low)) * 100
-    return f_high_percent
+    return round(f_high_percent)
 
 
 def calculate_body(f_open, f_high, f_low, f_close):
@@ -37,15 +37,20 @@ def calculate_body(f_open, f_high, f_low, f_close):
         f_body_percent = ((f_close - f_open) / calculate_range(f_high, f_low)) * 100
     else:
         f_body_percent = ((f_open - f_close) / calculate_range(f_high, f_low)) * 100
-    return f_body_percent
+    return round(f_body_percent)
 
 
 def calculate_low(f_open, f_high, f_low, f_close):
     f_low_percent = 100 - calculate_high(f_open, f_high, f_low, f_close) - calculate_body(f_open, f_high, f_low, f_close)
-    return f_low_percent
+    return round(f_low_percent)
 
 
-i = 1
+def round_number(num_input, base=5):
+    # base = 5 rounds the number to this nearest value, so 25, 30, 35 etc.
+    return base * round(float(num_input) / base)
+
+
+i = 2
 # 0 = bear = S-22.77-51.3-25.93-72
 # 1 = bull = L-21.42-63.02-15.56-64
 
@@ -54,29 +59,36 @@ c_high = float(data[i][3])
 c_low = float(data[i][4])
 c_close = float(data[i][5])
 
-print("is_bull_candle: " + str(is_bull_candle(c_open, c_close)))
-print("calculate_range: " + str(calculate_range(c_high, c_low)))
+candle_bull = is_bull_candle(c_open, c_close)
+candle_range = calculate_range(c_high, c_low)
+candle_high = calculate_high(c_open, c_high, c_low, c_close)
+candle_body = calculate_body(c_open, c_high, c_low, c_close)
+candle_low = calculate_low(c_open, c_high, c_low, c_close)
 
-print("calculate_high: " + str(calculate_high(c_open, c_high, c_low, c_close)))
-print("calculate_body: " + str(calculate_body(c_open, c_high, c_low, c_close)))
-print("calculate_low: " + str(calculate_low(c_open, c_high, c_low, c_close)) + "\n")
+# print("is_bull_candle: " + str(candle_bull))
+# print("calculate_range: " + str(candle_range))
+# print("calculate_high: " + str(candle_high))
+# print("calculate_body: " + str(candle_body))
+# print("calculate_low: " + str(candle_low) + "\n")
 
-# print("Open Ref: " + str(c_open) + "\n")
-# our_candle_id = build_candle_id(c_close, c_open, c_high, c_low)
+candle_id = str(round_number(candle_high)) + "_" + str(round_number(candle_body)) + "_" + str(round_number(candle_low))
+print(candle_id)
 
 
+#
 # # creating an empty 2d array of int type
-# empt_array = np.empty((0,2), int)
+# nparray = np.empty((0,2), int)
 # print("Empty array:")
-# print(empt_array)
+# print(nparray)
 #
 # # adding two new rows to empt_array
 # # using np.append()
-# empt_array = np.append(empt_array, np.array([[10, 20]]), axis=0)
-# empt_array = np.append(empt_array, np.array([[40, 50]]), axis=0)
+# nparray = np.append(nparray, np.array([[10, 20]]), axis=0)
+# nparray = np.append(nparray, np.array([[40, 50]]), axis=0)
 #
 # print("\nNow array is:")
-# print(empt_array)
+# print(nparray)
+
 
 # i = 0
 # while i <= len(data)-1:
