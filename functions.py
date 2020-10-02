@@ -1,8 +1,8 @@
 def is_bull_candle(f_open, f_close):
     if f_close > f_open:
-        return 1
+        return 1 # Bull
     else:
-        return 0
+        return 0 # Bear
 
 
 def calculate_range(f_high, f_low):
