@@ -76,8 +76,9 @@ train_labels = np.array(train_labels)
 # data generated is not shuffled automatically.
 train_samples, train_labels = shuffle(train_samples, train_labels)
 
-print(train_samples)
-print(train_labels)
+# print(train_samples)
+# print(train_labels)
+
 
 # Scale the data in to a usable sample range classifying each entry between 0 and 1
 scaler = MinMaxScaler(feature_range=(0,1))
