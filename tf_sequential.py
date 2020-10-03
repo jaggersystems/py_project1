@@ -40,7 +40,7 @@ while i <= len(data)-2:
     candle_id = candle_high + "" + candle_body + "" + candle_low
 
     # train_samples.append(candle_high)
-    train_samples.append(candle_id)
+    train_samples.append(candle_body)
 
     j = i+1
     c_open = float(data[j][2])
