@@ -22,7 +22,7 @@ def calculate_high(f_open, f_high, f_low, f_close):
     else:
         # print("bear")
         f_high_percent = ((f_high - f_open) / nrange) * 100
-    return round(f_high_percent)
+    return round_number(f_high_percent, 5)
 
 
 def calculate_body(f_open, f_high, f_low, f_close):
@@ -34,12 +34,12 @@ def calculate_body(f_open, f_high, f_low, f_close):
         f_body_percent = ((f_close - f_open) / nrange) * 100
     else:
         f_body_percent = ((f_open - f_close) / nrange) * 100
-    return round(f_body_percent)
+    return round_number(f_body_percent, 5)
 
 
 def calculate_low(f_open, f_high, f_low, f_close):
     f_low_percent = 100 - calculate_high(f_open, f_high, f_low, f_close) - calculate_body(f_open, f_high, f_low, f_close)
-    return round(f_low_percent)
+    return round_number(f_low_percent, 5)
 
 
 def round_number(num_input, base=5):
