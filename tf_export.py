@@ -2,12 +2,12 @@ import functions as fn
 import numpy as np
 
 import csv
-with open('GBPUSDH4.csv', "r", newline='') as csv_file:
+with open('import.csv', "r", newline='') as csv_file:
     data = list(csv.reader(csv_file))
 csv_file.close()
 
 # creating an empty 1d array of int type
-npdata = np.empty((0, 10), int)   # 0,2 or 2d etc.
+npdata = np.empty((0, 12), int)   # 0,2 or 2d etc.
 
 # using np.append() to add rows to array
 i = 0
@@ -51,14 +51,24 @@ while i <= len(data)-3:
         [str(candle_high),
         str(candle_body),
         str(candle_low),
+        str(candle_bull),
         str(next_candle_high),
         str(next_candle_body),
         str(next_candle_low),
+        str(next_candle_bull),
         str(next2_candle_high),
         str(next2_candle_body),
         str(next2_candle_low),
          str(next2_candle_bull)]
     ]), axis=0)
+
+    # npdata = np.append(npdata, np.array([
+    #     [str(candle_high),
+    #     str(candle_body),
+    #     str(candle_low),
+    #     str(candle_bull),
+    #     str(next_candle_bull)]
+    # ]), axis=0)
 
     i += 2
 

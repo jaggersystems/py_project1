@@ -42,6 +42,6 @@ def calculate_low(f_open, f_high, f_low, f_close):
     return round_number(f_low_percent, 5)
 
 
-def round_number(num_input, base=5):
+def round_number(num_input, base=10):
     # base = 5 rounds the number to this nearest value, so 25, 30, 35 etc.
     return base * round(float(num_input) / base)
