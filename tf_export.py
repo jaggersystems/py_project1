@@ -70,7 +70,7 @@ while i <= len(data)-3:
     #     str(next_candle_bull)]
     # ]), axis=0)
 
-    i += 2
+    i += 3
 
 with open('export.csv', 'w', newline='') as file:
     writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
