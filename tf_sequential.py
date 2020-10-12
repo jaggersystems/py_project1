@@ -32,37 +32,37 @@ train_labels = np.array(train_y)
 # data generated is not shuffled automatically.
 
 # train_samples, train_labels = shuffle(train_samples, train_labels)
-
+#
 # print(train_samples)
 # print(train_labels)
 
-
-# Scale the data in to a usable sample range classifying each entry between 0 and 1
-scaler = MinMaxScaler(feature_range=(0, 1))
-scaled_train_samples = scaler.fit_transform(train_samples)
-
-# print(scaled_train_samples)
-
-
-physical_devices = tf.config.experimental.list_physical_devices('GPU')
-print("Num GPUs Available: ", len(physical_devices))
-tf.config.experimental.set_memory_growth(physical_devices[0], True)
-
-model = Sequential([
-    Dense(units=256, input_shape=(10,), activation='relu'),
-    Dense(units=256, activation='relu'),
-    Dense(units=2, activation='softmax')
-])
-
-model.compile(optimizer=Adam(learning_rate=0.0001),
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy']
-)
-
-model.fit(x=train_samples,
-          y=train_labels, validation_split=0.2,
-          batch_size=10,
-          epochs=30,
-          shuffle=True,
-          verbose=2
-          )
+#
+# # Scale the data in to a usable sample range classifying each entry between 0 and 1
+# scaler = MinMaxScaler(feature_range=(0, 1))
+# scaled_train_samples = scaler.fit_transform(train_samples)
+#
+# # print(scaled_train_samples)
+#
+#
+# # physical_devices = tf.config.experimental.list_physical_devices('GPU')
+# # print("Num GPUs Available: ", len(physical_devices))
+# # tf.config.experimental.set_memory_growth(physical_devices[0], True)
+#
+# model = Sequential([
+#     Dense(units=64, input_shape=(10,), activation='relu'),
+#     Dense(units=64, activation='relu'),
+#     Dense(units=10, activation='softmax')
+# ])
+#
+# model.compile(optimizer=Adam(learning_rate=0.0001),
+#               loss='sparse_categorical_crossentropy',
+#               metrics=['accuracy']
+# )
+#
+# model.fit(x=train_samples,
+#           y=train_labels, validation_split=0.2,
+#           batch_size=10,
+#           epochs=30,
+#           shuffle=True,
+#           verbose=2
+#           )

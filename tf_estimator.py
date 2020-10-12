@@ -6,7 +6,7 @@ from tensorflow import estimator
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' # Hides all un-nessesary logging
 
 
-CSV_COLUMN_NAMES = ["High", "Body", "Low", "Candle", "Next_Candle"]
+CSV_COLUMN_NAMES = ["High", "Body", "Low", "Candle", "Next_High", "Next_Body", "Next_Low", "Next_Candle"]
 NEXT_CANDLE = ["1", "0"]
 
 train = pd.read_csv("train.csv", names=CSV_COLUMN_NAMES, header=0)
@@ -54,21 +54,21 @@ eval_result = classifier.evaluate(
 
 print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
 
-
-def predict(x):
-    example = tf.train.Example()
-    example.features.feature["x"].float_list.value.extend([x])
-    return imported.signatures["predict"](
-        examples=tf.constant([example.SerializeToString()]))
-
-
-expected = ['1', '0']
-predict_x = {
-    'High': [25],
-    'Body': [75],
-    'Low': [0],
-    'Candle': [1],
-}
+#
+# def predict(x):
+#     example = tf.train.Example()
+#     example.features.feature["x"].float_list.value.extend([x])
+#     return imported.signatures["predict"](
+#         examples=tf.constant([example.SerializeToString()]))
+#
+#
+# expected = ['1', '0']
+# predict_x = {
+#     'High': [25],
+#     'Body': [75],
+#     'Low': [0],
+#     'Candle': [1],
+# }
 
 '''
 20,50,30,1  10,35,55,1
